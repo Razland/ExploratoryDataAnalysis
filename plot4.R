@@ -11,28 +11,17 @@ plot1 <-function(){
     scale_x_datetime(breaks = date_breaks("1 day"), 
                      labels=date_format(format="%a")) +
     theme(legend.position="none") +
-    theme_bw()
+    theme_bw(base_size=7)
   return(p1)
 }
 
-plot2 <-function(){ 
-  p2<-ggplot(PowDat, aes(x=fullDate, y=Voltage)) +
-    geom_line() + 
-    ylab("Voltage") +
-    xlab("datetime") + 
-    scale_x_datetime(breaks = date_breaks("1 day"), 
-                     labels=date_format(format="%a")) +
-    theme(legend.position="none") +
-    theme_bw()
-  return(p2)
-}
 
-plot3 <-function(){  
+plot2 <-function(){  
   x_start <- strptime("2007-02-02 10:00:00", format="%Y-%m-%d %H:%M:%S")
   x_end <- strptime("2007-02-02 11:40:00", format="%Y-%m-%d %H:%M:%S") 
   box_vert <- strptime("2007-02-02 09:30:00", format="%Y-%m-%d %H:%M:%S")
   box_h <- strptime("2007-02-02 11:59:59", format="%Y-%m-%d %H:%M:%S")
-  p3<-ggplot(PowDat, aes(x=fullDate, y=Sub_metering_1), size=2) +
+  p2<-ggplot(PowDat, aes(x=fullDate, y=Sub_metering_1), size=2) +
     geom_line() + 
     geom_line(data=PowDat, aes(y=Sub_metering_2), color="red") +
     geom_line(data=PowDat, aes(y=Sub_metering_3), color="blue") +
@@ -49,7 +38,19 @@ plot3 <-function(){
     geom_segment(aes(x=box_vert,xend=box_vert, y=40, yend=30), size=.25)+
     geom_segment(aes(x=box_vert, xend=box_h, y=30, yend=30), size=.25) +
     theme(legend.position="none") + 
-    theme_bw()
+    theme_bw(base_size=10)
+  return(p2)
+}
+
+plot3 <-function(){ 
+  p3<-ggplot(PowDat, aes(x=fullDate, y=Voltage)) +
+    geom_line() + 
+    ylab("Voltage") +
+    xlab("datetime") + 
+    scale_x_datetime(breaks = date_breaks("1 day"), 
+                     labels=date_format(format="%a")) +
+    theme(legend.position="none") +
+    theme_bw(base_size=10)
   return(p3)
 }
 
@@ -61,7 +62,7 @@ plot4 <-function(){
     scale_x_datetime(breaks = date_breaks("1 day"), 
                      labels=date_format(format="%a")) +
     theme(legend.position="none") +
-    theme_bw()
+    theme_bw(base_size=10)
   return(p4)
 }
 
@@ -76,7 +77,7 @@ if(file.exists("plot4.png")){
     source(paste0(getwd(), "/loadPowr.R"))
   } 
 
-  multiplot(plot1(), plot3(), plot2(), plot4(), cols=2)
-#  dev.copy(png, file = "plot4.png")
-#  dev.off()
+  multiplot(plot1(), plot2(), plot3(), plot4(), cols=2)
+  #dev.copy(png, file = "plot4.png")
+  #dev.off()
 }

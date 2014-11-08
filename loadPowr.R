@@ -1,6 +1,7 @@
 library(plyr)                                 ## Load libraries
 library(dplyr)
 
+
 dataURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
 targFileName <- "exdata_data_houshold_power_consumption.zip"
 dataFileName <- "household_power_consumption.txt"
