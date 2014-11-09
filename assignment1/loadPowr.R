@@ -1,21 +1,35 @@
-library(plyr)                                 ## Load libraries
+# Script loadPowr.R
+# Dave Kenny.  Exploratory Data Analysis Assignment 1, Nov 2014.
+# Utility script to get files and load into data structure.
+
+library(plyr) ## Load libraries
 library(dplyr)
 
-
-dataURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+dataURL <- paste0("https://d396qusza40orc.cloudfront.net/",
+                  "exdata%2Fdata%2Fhousehold_power_consumption.zip")
 targFileName <- "exdata_data_houshold_power_consumption.zip"
 dataFileName <- "household_power_consumption.txt"
 
-if(!file.exists(dataFileName)) {    
-  print(paste0("downloading data ", dataURL))
-  download.file( dataURL, destfile = targFileName, method = "curl")
-  unzip(targFileName)
+if(!file.exists(dataFileName)) {                          ## if not present,
+print(paste0("downloading data ", dataURL))               ## download file
+download.file(dataURL,                                    ## from web and  
+              destfile = targFileName, method = "curl")   ## decompress
+unzip(targFileName)
 }
-
-PowDat <- read.table( "household_power_consumption.txt", header=T, na.strings="?", sep=";")
-PowDat$Date <- as.Date(PowDat$Date, format="%d/%m/%Y")
-PowDat <- filter( PowDat, PowDat$Date == as.Date("2007-02-01") | PowDat$Date == as.Date("2007-02-02"))
-
-PowDat<- mutate( PowDat, fullDate =format(paste(PowDat$Date, PowDat$Time), format="%Y-%m-%d %H:%M:%S"))
-PowDat<- PowDat[,c(1, 2, 10, 3:9)]
-PowDat$fullDate <- strptime(PowDat$fullDate, format = "%Y-%m-%d %H:%M:%S")
+powDat <- read.table("household_power_consumption.txt",   ## Read data
+                     header=T, na.strings="?", 
+                     sep=";")
+powDat$Date <- as.Date(powDat$Date,                       ## Change date
+                       format="%d/%m/%Y")                 ## to POSIX
+powDat <- filter(powDat,                                  ## Discard un-
+                 powDat$Date == as.Date("2007-02-01") |   ## interesting 
+                 powDat$Date == as.Date("2007-02-02"))    ## variables
+powDat<- mutate(powDat,                                   ## Create new var-
+                fullDate=format(paste(powDat$Date,        ## iable from date 
+                                      powDat$Time),       ## and time fields
+                format="%Y-%m-%d %H:%M:%S"))
+powDat<- powDat[,c(1, 2, 10, 3:9)]                        ## Order variables
+powDat$fullDate <- strptime(powDat$fullDate,              ## Change variable to 
+                            format = "%Y-%m-%d %H:%M:%S") ## date type
+rm(dataURL, targFileName, dataFileName)                   ## Cleanup
+return(powDat)                                            ## Return data table.
