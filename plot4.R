@@ -101,6 +101,6 @@ if(file.exists("plot4.png" )){
   } 
 
   multiplot(plot1(), plot2(), plot3(), plot4(), cols=2 )
-  dev.copy(png, file = "plot4.png" )
+  dev.copy(png, width=480, height=480, file = "plot4.png" )
   dev.off()
 }

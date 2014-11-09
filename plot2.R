@@ -16,6 +16,6 @@ if(file.exists("plot2.png")){
        xlab = "",
        type = "l")
 
-  dev.copy(png, file = "plot2.png")
+  dev.copy(png, width=480, height=480, file = "plot2.png")
   dev.off()
 }

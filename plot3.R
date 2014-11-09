@@ -45,6 +45,6 @@ if(file.exists("plot3.png")){
     theme_bw()
 
   print(p)
-  dev.copy(png, file = "plot3.png")
+  dev.copy(png, width=480, height=480, file = "plot3.png")
   dev.off()
 }
