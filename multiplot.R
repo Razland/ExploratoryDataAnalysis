@@ -9,8 +9,7 @@
 # 3 will go all the way across the bottom.
 #
 # Credit: File downloaded 8 Nov 2014 from R Cookbook example at 
-## 
-##
+# http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_%28ggplot2%29/
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   require(grid)
   

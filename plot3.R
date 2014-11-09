@@ -12,7 +12,6 @@ if(file.exists("plot3.png")){
     source(paste0(getwd(), "/loadPowr.R"))
   } 
 
-  x_base <- strptime("2007-02-01 00:00:01", format="%Y-%m-%d %H:%M:%S")
   ann_x_start <- strptime("2007-02-02 10:00:00", format="%Y-%m-%d %H:%M:%S")
   ann_x_end <- strptime("2007-02-02 11:40:00", format="%Y-%m-%d %H:%M:%S") 
   box_vert <- strptime("2007-02-02 09:30:00", format="%Y-%m-%d %H:%M:%S")
